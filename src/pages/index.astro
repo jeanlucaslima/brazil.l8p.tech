@@ -477,42 +477,65 @@ const year = new Date().getFullYear();
     </section>
 
     <!-- ═══ Footer ═══ -->
-    <footer style="background: #0C1A3A;">
-      <div class="mx-auto max-w-7xl px-6 py-20">
-        <div class="flex flex-col gap-12 sm:flex-row sm:items-start sm:justify-between">
-          <div class="max-w-xs">
-            <a href="/">
-              <img src="/logos/airborne-wordmark-white.svg" alt="Airborne" class="h-6 w-auto" />
-            </a>
-            <p class="mt-6 text-sm leading-relaxed" style="color: rgba(255,255,255,0.45);">
-              Connecting CEOs and entrepreneurs for high-signal conversations in New York City.
-            </p>
-          </div>
+    <!-- Gradient transition -->
+    <div class="h-24" style="background: linear-gradient(180deg, #F0F2F8 0%, #0C1A3A 100%);"></div>
 
-          <div class="flex gap-16">
-            <div>
-              <h4 class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: rgba(255,255,255,0.6);">Event</h4>
-              <ul class="mt-5 space-y-3">
-                <li><a href="#about" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.4);">About</a></li>
-                <li><a href="#team" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.4);">Team</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: rgba(255,255,255,0.6);">Connect</h4>
-              <ul class="mt-5 space-y-3">
-                <li>
-                  <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.4);">airborne.ventures</a>
-                </li>
-              </ul>
-            </div>
+    <footer class="relative overflow-hidden" style="background: #0C1A3A;">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <!-- Organized by + logos -->
+        <div class="text-center">
+          <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: rgba(255,255,255,0.35);">Organized by</span>
+          <div class="mt-8 flex flex-col items-center gap-8 sm:flex-row sm:justify-center sm:gap-12">
+            <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-70">
+              <img src="/logos/airborne-full.svg" alt="Airborne Ventures" class="h-10 w-auto brightness-0 invert" />
+            </a>
+            <span class="hidden sm:block h-8 w-px" style="background: rgba(255,255,255,0.1);"></span>
+            <a href="https://confrariatech.com" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-70">
+              <img src="/logos/confrariatech.svg" alt="ConfrariaTech" class="h-8 w-auto opacity-70" />
+            </a>
+          </div>
+          <p class="mx-auto mt-10 max-w-md text-sm leading-relaxed" style="color: rgba(255,255,255,0.35);">
+            Connecting CEOs and entrepreneurs for high-signal conversations in New York City.
+          </p>
+        </div>
+
+        <!-- Dashed contour divider -->
+        <div class="my-16 h-px" style="background: repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 6px, transparent 6px, transparent 16px); mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, transparent 100%);"></div>
+
+        <!-- Link columns -->
+        <div class="flex justify-center gap-20">
+          <div>
+            <h4 class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: rgba(255,255,255,0.4);">Event</h4>
+            <ul class="mt-5 space-y-3">
+              <li><a href="#about" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.3);">About</a></li>
+              <li><a href="#team" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.3);">Team</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: rgba(255,255,255,0.4);">Connect</h4>
+            <ul class="mt-5 space-y-3">
+              <li><a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.3);">airborne.ventures</a></li>
+              <li><a href="https://confrariatech.com" target="_blank" rel="noopener noreferrer" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.3);">confrariatech.com</a></li>
+            </ul>
           </div>
         </div>
 
-        <div class="mt-20 flex flex-col items-center justify-between gap-4 pt-8 sm:flex-row" style="border-top: 1px solid rgba(255,255,255,0.06);">
-          <p class="font-mono text-xs" style="color: rgba(255,255,255,0.3);">
+        <!-- Copyright -->
+        <div class="mt-16 pt-8 text-center" style="border-top: 1px solid rgba(255,255,255,0.04);">
+          <p class="font-mono text-xs" style="color: rgba(255,255,255,0.2);">
             &copy; {year} Airborne Ventures. All rights reserved.
           </p>
         </div>
+      </div>
+
+      <!-- Lift-off: upward accent line -->
+      <div class="flex justify-center mb-6">
+        <div class="h-12 w-px" style="background: linear-gradient(180deg, rgba(123,164,212,0.3) 0%, transparent 100%);"></div>
+      </div>
+
+      <!-- Lift-off: massive watermark -->
+      <div class="pb-10 text-center select-none" aria-hidden="true">
+        <span class="font-display text-[clamp(4rem,12vw,10rem)] font-800 tracking-[0.3em] uppercase" style="color: rgba(255,255,255,0.035);">AIRBORNE</span>
       </div>
     </footer>
   </div>
