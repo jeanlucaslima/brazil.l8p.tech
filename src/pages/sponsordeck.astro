@@ -21,6 +21,8 @@ const organizers = [
 const ecosystem = [
   { name: "Airborne Ventures", logo: "/logos/airborne-full.svg", noFilter: true },
   { name: "ConfrariaTech", logo: "/logos/confrariatech.svg" },
+  { name: "Clara", url: "https://www.clara.com/", noFilter: true },
+  { name: "bycoders", url: "https://bycoders.co/", noFilter: true },
 ];
 ---
 
@@ -410,13 +412,23 @@ const ecosystem = [
 
         <div class="mt-12 flex flex-wrap justify-center gap-4">
           {ecosystem.map((company) => (
-            <div class="flex h-20 items-center justify-center rounded-xl px-7" style="background: var(--deck-surface); border: 1px solid var(--deck-border);">
-              {company.logo ? (
-                <img src={company.logo} alt={company.name} class={`h-10 max-w-[120px] object-contain ${company.noFilter ? '' : 'ecosystem-logo'}`} />
-              ) : (
-                <span class="font-display text-base font-700" style="color: var(--deck-text);">{company.name}</span>
-              )}
-            </div>
+            company.url ? (
+              <a href={company.url} target="_blank" rel="noopener noreferrer" class="flex h-20 items-center justify-center rounded-xl px-7 transition-opacity hover:opacity-70" style="background: var(--deck-surface); border: 1px solid var(--deck-border);">
+                {company.logo ? (
+                  <img src={company.logo} alt={company.name} class={`h-10 max-w-[120px] object-contain ${company.noFilter ? '' : 'ecosystem-logo'}`} />
+                ) : (
+                  <span class="font-display text-base font-700" style="color: var(--deck-text);">{company.name}</span>
+                )}
+              </a>
+            ) : (
+              <div class="flex h-20 items-center justify-center rounded-xl px-7" style="background: var(--deck-surface); border: 1px solid var(--deck-border);">
+                {company.logo ? (
+                  <img src={company.logo} alt={company.name} class={`h-10 max-w-[120px] object-contain ${company.noFilter ? '' : 'ecosystem-logo'}`} />
+                ) : (
+                  <span class="font-display text-base font-700" style="color: var(--deck-text);">{company.name}</span>
+                )}
+              </div>
+            )
           ))}
           <div class="flex h-20 items-center justify-center rounded-xl px-7" style="background: rgba(67, 110, 182, 0.04); border: 1px solid rgba(67, 110, 182, 0.1);">
             <span class="font-display text-base font-600" style="color: var(--deck-light-muted);">& more</span>
