@@ -52,32 +52,76 @@ const year = new Date().getFullYear();
   })} />
 
   <div class="page relative overflow-x-hidden">
-    <!-- Background pattern -->
+
+    <!-- ═══ Background: Atmosphere ═══ -->
     <div class="pointer-events-none fixed inset-0 overflow-hidden">
-      <div
-        class="absolute inset-0"
-        style="opacity: 0.09; background-image: linear-gradient(var(--ab-accent) 1px, transparent 1px), linear-gradient(90deg, var(--ab-accent) 1px, transparent 1px); background-size: 60px 60px;"
-      ></div>
-      <div class="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-3xl" style="border: 1px solid rgba(67, 110, 182, 0.14);"></div>
-      <div class="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-2xl" style="border: 1px solid rgba(67, 110, 182, 0.09);"></div>
-      <div class="absolute left-1/4 top-1/3 h-[500px] w-[500px] rounded-full blur-[120px]" style="background: rgba(67, 110, 182, 0.06);"></div>
-      <div class="absolute bottom-1/4 right-1/4 h-[400px] w-[400px] rounded-full blur-[100px]" style="background: rgba(184, 134, 11, 0.04);"></div>
+      <!-- Horizon gradient band -->
+      <div class="absolute top-0 left-0 right-0 h-[50vh] animate-shimmer"
+        style="background: linear-gradient(180deg, rgba(59,108,181,0.05) 0%, rgba(123,164,212,0.02) 40%, transparent 100%);">
+      </div>
+
+      <!-- Topographic altitude contour lines -->
+      <svg class="absolute inset-0 h-full w-full contour-layer" preserveAspectRatio="none" viewBox="0 0 1600 900">
+        <!-- Major contour lines -->
+        <path d="M-50,120 Q150,80 350,130 Q550,180 750,110 Q950,40 1150,100 Q1350,160 1550,90 L1700,95" fill="none" stroke="rgba(59,108,181,0.07)" stroke-width="1.2" />
+        <path d="M-50,380 Q200,340 400,400 Q600,460 800,370 Q1000,280 1200,360 Q1400,440 1650,350" fill="none" stroke="rgba(59,108,181,0.06)" stroke-width="1.2" />
+        <path d="M-50,650 Q180,610 380,670 Q580,730 780,640 Q980,550 1180,630 Q1380,710 1650,620" fill="none" stroke="rgba(59,108,181,0.05)" stroke-width="1.2" />
+
+        <!-- Minor contour lines -->
+        <path d="M-50,170 Q180,140 380,180 Q580,220 780,155 Q980,90 1180,145 Q1380,200 1650,140" fill="none" stroke="rgba(59,108,181,0.04)" stroke-width="0.6" />
+        <path d="M-50,230 Q200,205 400,240 Q600,275 800,210 Q1000,145 1200,200 Q1400,255 1650,195" fill="none" stroke="rgba(59,108,181,0.035)" stroke-width="0.6" />
+        <path d="M-50,430 Q190,400 390,445 Q590,490 790,415 Q990,340 1190,405 Q1390,470 1650,400" fill="none" stroke="rgba(59,108,181,0.035)" stroke-width="0.6" />
+        <path d="M-50,550 Q170,520 370,560 Q570,600 770,530 Q970,460 1170,525 Q1370,590 1650,520" fill="none" stroke="rgba(59,108,181,0.03)" stroke-width="0.6" />
+        <path d="M-50,700 Q200,675 400,715 Q600,755 800,685 Q1000,615 1200,680 Q1400,745 1650,670" fill="none" stroke="rgba(59,108,181,0.035)" stroke-width="0.6" />
+        <path d="M-50,830 Q220,800 420,845 Q620,890 820,810 Q1020,730 1220,800 Q1420,870 1650,795" fill="none" stroke="rgba(59,108,181,0.025)" stroke-width="0.6" />
+
+        <!-- Altitude labels -->
+        <text x="1420" y="117" fill="rgba(59,108,181,0.08)" font-family="Space Mono, monospace" font-size="8" letter-spacing="0.05em">35000</text>
+        <text x="1480" y="377" fill="rgba(59,108,181,0.07)" font-family="Space Mono, monospace" font-size="8" letter-spacing="0.05em">28000</text>
+        <text x="1440" y="647" fill="rgba(59,108,181,0.06)" font-family="Space Mono, monospace" font-size="8" letter-spacing="0.05em">21000</text>
+      </svg>
+
+      <!-- Second contour layer (depth) -->
+      <svg class="absolute inset-0 h-full w-full contour-layer-slow" preserveAspectRatio="none" viewBox="0 0 1600 900" style="opacity: 0.5;">
+        <path d="M-50,80 Q250,50 450,95 Q650,140 850,70 Q1050,0 1250,65 Q1450,130 1700,60" fill="none" stroke="rgba(59,108,181,0.05)" stroke-width="0.8" stroke-dasharray="4,8" />
+        <path d="M-50,320 Q220,285 420,335 Q620,385 820,310 Q1020,235 1220,305 Q1420,375 1700,300" fill="none" stroke="rgba(59,108,181,0.04)" stroke-width="0.8" stroke-dasharray="4,8" />
+        <path d="M-50,580 Q240,545 440,595 Q640,645 840,570 Q1040,495 1240,565 Q1440,635 1700,560" fill="none" stroke="rgba(59,108,181,0.03)" stroke-width="0.8" stroke-dasharray="4,8" />
+      </svg>
+
+      <!-- Radar rings -->
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div class="absolute h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed animate-radar" style="border-color: rgba(59,108,181,0.06);"></div>
+        <div class="absolute h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed animate-radar" style="border-color: rgba(59,108,181,0.04); animation-delay: 1.3s;"></div>
+        <div class="absolute h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed animate-radar" style="border-color: rgba(59,108,181,0.03); animation-delay: 2.6s;"></div>
+      </div>
+
+      <!-- Ambient glow -->
+      <div class="absolute left-1/4 top-1/3 h-[600px] w-[600px] rounded-full blur-[150px] animate-breathe" style="background: rgba(59,108,181,0.04);"></div>
     </div>
 
-    <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl" style="border-bottom: 1px solid var(--ab-border); background: rgba(236, 237, 245, 0.85);">
-      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <!-- ═══ Header ═══ -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl" style="border-bottom: 1px solid rgba(59,108,181,0.08); background: rgba(240,242,248,0.9);">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
         <a href="/" class="group">
           <img src="/logos/airborne-full.svg" alt="Airborne" class="h-8 w-auto" />
         </a>
 
-        <nav class="hidden items-center gap-8 md:flex">
-          <a href="#about" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-muted);">About</a>
-          <a href="#team" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-muted);">Team</a>
-          <a href="#ecosystem" class="text-sm transition-opacity hover:opacity-70" style="color: var(--ab-muted);">Ecosystem</a>
+        <!-- HUD menu button -->
+        <button id="mobile-menu-btn" class="hud-btn group" aria-label="Menu" aria-expanded="false">
+          <span class="hud-btn-text">MENU</span>
+        </button>
+      </div>
+
+      <!-- Mobile menu panel -->
+      <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+        <nav class="flex flex-col items-center gap-4 px-6 py-10 md:flex-row md:justify-center md:gap-3 md:py-6">
+          <a href="#about" class="hud-menu-link font-mono text-[10px] font-700 uppercase tracking-[0.2em] px-6 py-2 transition-colors" style="color: var(--color-accent); border: 1px solid rgba(59,108,181,0.2);">About</a>
+          <a href="#team" class="hud-menu-link font-mono text-[10px] font-700 uppercase tracking-[0.2em] px-6 py-2 transition-colors" style="color: var(--color-accent); border: 1px solid rgba(59,108,181,0.2);">Team</a>
+          <a href="#ecosystem" class="hud-menu-link font-mono text-[10px] font-700 uppercase tracking-[0.2em] px-6 py-2 transition-colors" style="color: var(--color-accent); border: 1px solid rgba(59,108,181,0.2);">Ecosystem</a>
+          <div class="mt-2 h-px w-16 md:hidden" style="background: rgba(59,108,181,0.1);"></div>
           <span
-            class="inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-500 cursor-default opacity-50"
-            style="border: 1px solid var(--ab-accent); background: rgba(67, 110, 182, 0.08); color: var(--ab-accent);"
+            class="font-mono text-[10px] font-700 uppercase tracking-[0.2em] px-6 py-2 cursor-default opacity-40"
+            style="color: var(--color-accent); border: 1px solid rgba(59,108,181,0.15);"
           >
             Request Invite
           </span>
@@ -85,148 +129,169 @@ const year = new Date().getFullYear();
       </div>
     </header>
 
-    <!-- Hero -->
-    <section class="relative flex min-h-screen items-center overflow-hidden pt-20">
-      <div class="relative mx-auto max-w-7xl px-6 py-24">
-        <div class="max-w-4xl">
-          <div class="animate-fade-up mb-8" style="animation-delay: 0.1s;">
-            <span
-              class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-500 tracking-wide uppercase"
-              style="border: 1px solid var(--ab-border); background: var(--ab-surface); color: var(--ab-muted);"
-            >
-              <span class="inline-block h-1.5 w-1.5 rounded-full animate-pulse" style="background: var(--ab-accent);"></span>
-              CEOs + Entrepreneurs · Invite Only
-            </span>
+    <!-- ═══ Hero ═══ -->
+    <section class="hero-section relative flex flex-col pt-20">
+      <div class="flex-1 min-h-[60px]"></div>
+      <div class="relative mx-auto max-w-7xl px-6 pb-12 md:pb-24 w-full flex-shrink-0">
+        <div class="max-w-5xl">
+          <!-- Massive title -->
+          <div class="overflow-y-hidden">
+            <h1 class="animate-hero-reveal font-display leading-[0.85] tracking-tighter" style="animation-delay: 0.2s;">
+              <span class="block text-[clamp(3.5rem,12vw,14rem)] font-800" style="color: var(--color-midnight);">AIRBORNE</span>
+              <span class="block text-[clamp(2rem,6vw,7rem)] font-400 mt-1 md:mt-2" style="color: var(--color-accent);">Day</span>
+            </h1>
           </div>
 
-          <h1
-            class="animate-fade-up font-display text-6xl font-800 leading-[0.95] tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
-            style="animation-delay: 0.2s;"
-          >
-            <span style="color: var(--ab-text);">Airborne</span><br />
-            <span style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Day</span>
-          </h1>
-
+          <!-- Subtitle -->
           <p
-            class="animate-fade-up mt-8 max-w-xl text-lg leading-relaxed sm:text-xl"
-            style="animation-delay: 0.35s; color: var(--ab-muted);"
+            class="animate-fade-up mt-6 md:mt-10 max-w-lg text-lg md:text-xl leading-relaxed"
+            style="animation-delay: 0.5s; color: var(--color-muted);"
           >
-            An invite-only full-day gathering of CEOs and entrepreneurs in New York City. Small rooms. Real conversations. Leaders only.
+            An invite-only full-day gathering of CEOs and entrepreneurs in New York City.
           </p>
 
-          <div class="animate-fade-up mt-10 inline-flex flex-col items-start rounded-2xl px-8 py-5" style="animation-delay: 0.45s; background: rgba(67, 110, 182, 0.06); border: 1px solid rgba(67, 110, 182, 0.12);">
-            <span class="font-display text-2xl font-800 sm:text-3xl" style="color: var(--ab-text);">May 14, 2026</span>
-            <span class="mt-1 font-display text-base font-600" style="color: var(--ab-accent);">Full Day &middot; New York City</span>
-            <span class="mt-1 text-xs" style="color: var(--ab-light-muted);"><a href="https://maps.google.com/?q=345+Avenue+of+the+Americas,+New+York,+NY" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 transition-opacity hover:opacity-70">Tailor Partners &middot; 345 Avenue of the Americas</a></span>
+          <!-- Cockpit readout: Date block -->
+          <div class="animate-fade-up mt-6 md:mt-10 inline-flex flex-col items-start cockpit-card rounded-lg px-6 py-4 md:px-8 md:py-6" style="animation-delay: 0.6s;">
+            <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: var(--color-accent);">Event Date</span>
+            <span class="font-mono text-3xl font-700 mt-2 sm:text-4xl" style="color: var(--color-midnight);">MAY 14, 2026</span>
+            <div class="flex items-center gap-3 mt-3">
+              <span class="font-mono text-xs uppercase tracking-wider" style="color: var(--color-subtle);">Full Day</span>
+              <span class="h-1 w-1 rounded-full" style="background: var(--color-accent);"></span>
+              <span class="font-mono text-xs uppercase tracking-wider" style="color: var(--color-subtle);">New York City</span>
+            </div>
+            <span class="mt-3 font-mono text-[10px]" style="color: var(--color-subtle);"><a href="https://maps.google.com/?q=345+Avenue+of+the+Americas,+New+York,+NY" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 transition-opacity hover:opacity-70">Tailor Partners · 345 Avenue of the Americas</a></span>
           </div>
 
-          <p class="animate-fade-up mt-6 text-xs" style="animation-delay: 0.55s; color: var(--ab-light-muted);">
+          <p class="animate-fade-up mt-4 md:mt-8 text-xs font-mono" style="animation-delay: 0.7s; color: var(--color-subtle);">
             Organized by
-            <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="font-600 transition-opacity hover:opacity-70" style="color: var(--ab-accent);">Airborne Ventures</a>
+            <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="font-700 transition-opacity hover:opacity-70" style="color: var(--color-accent);">Airborne Ventures</a>
             &
-            <span class="font-600" style="color: var(--ab-muted);">ConfrariaTech</span>
+            <span class="font-700" style="color: var(--color-muted);">ConfrariaTech</span>
           </p>
         </div>
 
-        <div
-          class="animate-slide-in-right absolute bottom-24 right-6 hidden flex-col items-end gap-1 lg:flex"
-          style="animation-delay: 0.6s;"
-        >
-          <span class="font-display text-7xl font-800 leading-none" style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">14</span>
-          <span class="text-xs tracking-widest uppercase" style="color: var(--ab-light-muted);">May 2026</span>
+        <!-- HUD edge readouts -->
+        <div class="hidden lg:block">
+          <!-- Right side: altitude readouts -->
+          <div class="animate-fade-up absolute top-40 right-8 flex flex-col items-end gap-8" style="animation-delay: 0.9s;">
+            <div class="hud-readout">
+              <span class="hud-readout-label">ALT</span>
+              <span class="hud-readout-value">FL350</span>
+            </div>
+            <div class="hud-readout">
+              <span class="hud-readout-label">HDG</span>
+              <span class="hud-readout-value">074°</span>
+            </div>
+            <div class="hud-readout">
+              <span class="hud-readout-label">SPD</span>
+              <span class="hud-readout-value">M0.84</span>
+            </div>
+          </div>
+
+          <!-- Bottom right: coordinates -->
+          <div class="animate-fade-up absolute bottom-32 right-8" style="animation-delay: 1s;">
+            <span class="font-mono text-[10px] tracking-wider" style="color: rgba(59,108,181,0.18);">40.7234°N 74.0052°W</span>
+          </div>
         </div>
       </div>
+
+      <!-- Dashed flight-path divider -->
+      <div class="absolute bottom-0 left-0 right-0 h-px" style="background: repeating-linear-gradient(90deg, rgba(59,108,181,0.12) 0, rgba(59,108,181,0.12) 8px, transparent 8px, transparent 20px);"></div>
     </section>
 
-    <!-- Brazil Week Banner -->
-    <section class="relative overflow-hidden py-16" style="background: linear-gradient(135deg, #1a3a2a 0%, var(--ab-accent-dim) 40%, #2a4a1e 100%);">
-      <!-- Green/gold glow accents -->
-      <div class="pointer-events-none absolute -left-20 top-1/2 h-[300px] w-[300px] -translate-y-1/2 rounded-full blur-[100px]" style="background: rgba(0, 156, 59, 0.15);"></div>
-      <div class="pointer-events-none absolute -right-10 -top-10 h-[250px] w-[250px] rounded-full blur-[90px]" style="background: rgba(255, 200, 0, 0.1);"></div>
-      <div class="pointer-events-none absolute bottom-0 left-1/3 h-[200px] w-[400px] rounded-full blur-[80px]" style="background: rgba(0, 156, 59, 0.08);"></div>
+    <!-- ═══ Brazil Week Banner ═══ -->
+    <section class="relative overflow-hidden py-16" style="background: linear-gradient(135deg, #0a1a12 0%, #0d2818 40%, #0a1a0e 100%);">
+      <div class="pointer-events-none absolute -left-20 top-1/2 h-[300px] w-[300px] -translate-y-1/2 rounded-full blur-[100px]" style="background: rgba(0, 156, 59, 0.1);"></div>
+      <div class="pointer-events-none absolute -right-10 -top-10 h-[250px] w-[250px] rounded-full blur-[90px]" style="background: rgba(255, 200, 0, 0.06);"></div>
 
       <div class="relative mx-auto max-w-5xl px-6">
         <div class="flex flex-col items-center gap-6 text-center lg:flex-row lg:text-left lg:gap-12">
           <div class="flex-1">
-            <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: rgba(0, 200, 80, 0.6);">Part of</span>
+            <span class="font-mono text-xs font-700 tracking-[0.2em] uppercase" style="color: rgba(0, 200, 80, 0.5);">Part of</span>
             <h2 class="mt-2 font-display text-2xl font-800 tracking-tight sm:text-3xl" style="background: linear-gradient(135deg, #ffffff, #a8e6a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
               Brazil Week NYC
             </h2>
-            <div class="mx-auto mt-3 h-px w-16 lg:mx-0" style="background: linear-gradient(to right, rgba(0, 156, 59, 0.6), rgba(255, 200, 0, 0.4), transparent);"></div>
-            <p class="mt-4 text-base leading-relaxed" style="color: rgba(255,255,255,0.75);">
+            <div class="mx-auto mt-3 h-px w-16 lg:mx-0" style="background: linear-gradient(to right, rgba(0, 156, 59, 0.4), rgba(255, 200, 0, 0.3), transparent);"></div>
+            <p class="mt-4 text-base leading-relaxed" style="color: rgba(255,255,255,0.55);">
               A series of high-level events in New York City promoting Brazilian business, innovation, and technology. Brazil Week brings together government officials, investors, and entrepreneurs to discuss economic opportunities and showcase Brazilian innovation across sectors like technology, sustainability, and the creative economy.
             </p>
           </div>
           <div class="shrink-0">
-            <div class="inline-flex flex-col items-center rounded-xl px-6 py-4" style="background: rgba(0, 156, 59, 0.1); border: 1px solid rgba(0, 156, 59, 0.2);">
-              <span class="font-display text-sm font-600 uppercase tracking-wider" style="color: rgba(255, 200, 0, 0.6);">May 2026</span>
+            <div class="inline-flex flex-col items-center rounded-lg px-6 py-4" style="background: rgba(0, 156, 59, 0.06); border: 1px solid rgba(0, 156, 59, 0.15);">
+              <span class="font-mono text-xs font-700 uppercase tracking-wider" style="color: rgba(255, 200, 0, 0.5);">May 2026</span>
               <span class="mt-1 font-display text-lg font-800 text-white">New York City</span>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="absolute bottom-0 left-0 right-0 h-px" style="background: repeating-linear-gradient(90deg, rgba(0,156,59,0.15) 0, rgba(0,156,59,0.15) 8px, transparent 8px, transparent 20px);"></div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="relative py-32" style="border-top: 1px solid var(--ab-border);">
-      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+    <!-- ═══ About ═══ -->
+    <section id="about" class="reveal-section relative py-36">
+      <div class="contour-divider"></div>
 
       <div class="mx-auto max-w-7xl px-6">
         <div class="grid gap-16 lg:grid-cols-12">
           <div class="lg:col-span-4">
-            <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">About the Event</span>
-            <h2 class="mt-4 font-display text-4xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--ab-text);">
+            <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: var(--color-accent);">About the Event</span>
+            <h2 class="mt-6 font-display text-4xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--color-midnight);">
               One afternoon.<br />
-              <span style="color: var(--ab-muted);">Real conversations.</span>
+              <span style="color: var(--color-subtle);">Real conversations.</span>
             </h2>
           </div>
 
-          <div class="space-y-8 lg:col-span-7 lg:col-start-6">
-            <p class="text-lg leading-relaxed" style="color: var(--ab-muted);">
+          <div class="space-y-10 lg:col-span-7 lg:col-start-6">
+            <p class="text-lg leading-relaxed" style="color: var(--color-muted);">
               Airborne Day is a curated, invite-only full-day event bringing together CEOs, founders, and entrepreneurs in New York City. No panels, no keynotes — just focused conversations between people building and leading companies at the frontier of technology and business.
             </p>
-            <p class="text-lg leading-relaxed" style="color: var(--ab-muted);">
+            <p class="text-lg leading-relaxed" style="color: var(--color-muted);">
               We keep the group intimate so every conversation matters. If you're leading a company, scaling a product, or building something ambitious, this is your room.
             </p>
 
-            <div class="mt-12 grid gap-4 sm:grid-cols-3">
-              <div class="ab-card rounded-xl p-6">
-                <span class="font-display text-3xl font-800" style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">1</span>
-                <p class="mt-2 text-base" style="color: var(--ab-light-muted);">Full day of immersion</p>
+            <!-- Cockpit stat blocks -->
+            <div class="mt-14 grid gap-5 sm:grid-cols-3">
+              <div class="cockpit-card rounded-lg p-8">
+                <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase block" style="color: var(--color-accent);">Duration</span>
+                <span class="font-mono text-3xl font-700 block mt-2" style="color: var(--color-midnight);">1</span>
+                <p class="mt-3 font-mono text-xs uppercase tracking-wider" style="color: var(--color-subtle);">Full day of immersion</p>
               </div>
-              <div class="ab-card rounded-xl p-6">
-                <span class="font-display text-3xl font-800" style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CEOs</span>
-                <p class="mt-2 text-base" style="color: var(--ab-light-muted);">Founders & entrepreneurs</p>
+              <div class="cockpit-card rounded-lg p-8">
+                <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase block" style="color: var(--color-accent);">Attendees</span>
+                <span class="font-mono text-3xl font-700 block mt-2" style="color: var(--color-midnight);">CEOs</span>
+                <p class="mt-3 font-mono text-xs uppercase tracking-wider" style="color: var(--color-subtle);">Founders & entrepreneurs</p>
               </div>
-              <div class="ab-card rounded-xl p-6">
-                <span class="font-display text-3xl font-800" style="background: linear-gradient(135deg, var(--ab-accent), var(--ab-accent-dim)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NYC</span>
-                <p class="mt-2 text-base" style="color: var(--ab-light-muted);">New York &middot; invite only</p>
+              <div class="cockpit-card rounded-lg p-8">
+                <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase block" style="color: var(--color-accent);">Location</span>
+                <span class="font-mono text-3xl font-700 block mt-2" style="color: var(--color-midnight);">NYC</span>
+                <p class="mt-3 font-mono text-xs uppercase tracking-wider" style="color: var(--color-subtle);">New York · invite only</p>
               </div>
             </div>
 
             <!-- Format -->
-            <div class="mt-16">
-              <h3 class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Format</h3>
-              <div class="mt-6">
-                <div class="ab-card rounded-xl p-6" style="border-left: 4px solid var(--ab-accent);">
-                  <span class="font-display text-lg font-800" style="color: var(--ab-text);">
-                    May 14th &middot; Full Day &middot; New York City
+            <div class="mt-20">
+              <h3 class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: var(--color-accent);">Format</h3>
+              <div class="mt-8">
+                <div class="cockpit-card rounded-lg p-8" style="border-left: 2px solid var(--color-accent);">
+                  <span class="font-display text-lg font-800" style="color: var(--color-midnight);">
+                    May 14th · Full Day · New York City
                   </span>
-                  <ul class="mt-4 space-y-2">
-                    <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
-                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                  <ul class="mt-6 space-y-4">
+                    <li class="flex items-start gap-3 text-base" style="color: var(--color-muted);">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full animate-blip" style="background: var(--color-accent);"></span>
                       Networking & welcome reception
                     </li>
-                    <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
-                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                    <li class="flex items-start gap-3 text-base" style="color: var(--color-muted);">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full animate-blip" style="background: var(--color-accent); animation-delay: 0.3s;"></span>
                       Talks from industry leaders and founders
                     </li>
-                    <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
-                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                    <li class="flex items-start gap-3 text-base" style="color: var(--color-muted);">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full animate-blip" style="background: var(--color-accent); animation-delay: 0.6s;"></span>
                       CEO & entrepreneur roundtables
                     </li>
-                    <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
-                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                    <li class="flex items-start gap-3 text-base" style="color: var(--color-muted);">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full animate-blip" style="background: var(--color-accent); animation-delay: 0.9s;"></span>
                       Space for direct conversations
                     </li>
                   </ul>
@@ -235,26 +300,26 @@ const year = new Date().getFullYear();
             </div>
 
             <!-- Who Attends -->
-            <div class="mt-16">
-              <h3 class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Who Attends</h3>
-              <p class="mt-6 text-base leading-relaxed" style="color: var(--ab-light-muted);">
+            <div class="mt-20">
+              <h3 class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: var(--color-accent);">Who Attends</h3>
+              <p class="mt-8 text-base leading-relaxed" style="color: var(--color-muted);">
                 We curate for leaders — people actively building products, scaling companies, and making decisions that shape industries.
               </p>
-              <ul class="mt-4 space-y-2">
-                <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
-                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+              <ul class="mt-6 space-y-4">
+                <li class="flex items-start gap-3 text-base" style="color: var(--color-muted);">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full animate-blip" style="background: var(--color-accent);"></span>
                   CEOs and founders building venture-backed companies
                 </li>
-                <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
-                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                <li class="flex items-start gap-3 text-base" style="color: var(--color-muted);">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full animate-blip" style="background: var(--color-accent); animation-delay: 0.2s;"></span>
                   Entrepreneurs scaling products across markets
                 </li>
-                <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
-                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                <li class="flex items-start gap-3 text-base" style="color: var(--color-muted);">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full animate-blip" style="background: var(--color-accent); animation-delay: 0.4s;"></span>
                   Technical leaders at the frontier of AI and software
                 </li>
-                <li class="flex items-start gap-2 text-base" style="color: var(--ab-muted);">
-                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ab-accent);"></span>
+                <li class="flex items-start gap-3 text-base" style="color: var(--color-muted);">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full animate-blip" style="background: var(--color-accent); animation-delay: 0.6s;"></span>
                   Investors and operators with deep industry ties
                 </li>
               </ul>
@@ -264,25 +329,25 @@ const year = new Date().getFullYear();
       </div>
     </section>
 
-    <!-- Speakers -->
-    <section class="relative py-32" style="border-top: 1px solid var(--ab-border);">
-      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+    <!-- ═══ Speakers ═══ -->
+    <section class="reveal-section relative py-36">
+      <div class="contour-divider"></div>
 
       <div class="mx-auto max-w-7xl px-6">
         <div class="grid gap-16 lg:grid-cols-12">
           <div class="lg:col-span-4">
-            <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Speaker Profile</span>
-            <h2 class="mt-4 font-display text-4xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--ab-text);">
+            <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: var(--color-accent);">Speaker Profile</span>
+            <h2 class="mt-6 font-display text-4xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--color-midnight);">
               Built by<br />
-              <span style="color: var(--ab-muted);">practitioners.</span>
+              <span style="color: var(--color-subtle);">practitioners.</span>
             </h2>
           </div>
 
-          <div class="space-y-8 lg:col-span-7 lg:col-start-6">
-            <p class="text-lg leading-relaxed" style="color: var(--ab-muted);">
+          <div class="space-y-10 lg:col-span-7 lg:col-start-6">
+            <p class="text-lg leading-relaxed" style="color: var(--color-muted);">
               Our speakers are not professional keynote-givers. They are CEOs, founders, and entrepreneurs who are actively building — sharing real lessons from real work. Expect raw, unfiltered takes on strategy, scaling, and the challenges of leading companies at the frontier.
             </p>
-            <p class="text-lg leading-relaxed" style="color: var(--ab-muted);">
+            <p class="text-lg leading-relaxed" style="color: var(--color-muted);">
               Past and future speakers come from companies shaping how industries evolve and businesses scale.
             </p>
           </div>
@@ -290,52 +355,51 @@ const year = new Date().getFullYear();
       </div>
     </section>
 
-    <!-- Team -->
-    <section id="team" class="relative py-24" style="border-top: 1px solid var(--ab-border);">
-      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+    <!-- ═══ Team ═══ -->
+    <section id="team" class="reveal-section relative py-36">
+      <div class="contour-divider"></div>
 
       <div class="mx-auto max-w-7xl px-6">
         <div class="mx-auto max-w-2xl text-center">
-          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">The Team</span>
-          <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-4xl" style="color: var(--ab-text);">
+          <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: var(--color-accent);">The Team</span>
+          <h2 class="mt-6 font-display text-3xl font-800 leading-tight tracking-tight sm:text-4xl" style="color: var(--color-midnight);">
             The people behind this event.
           </h2>
-          <p class="mt-4 text-lg" style="color: var(--ab-muted);">
+          <p class="mt-6 text-lg" style="color: var(--color-muted);">
             Connecting CEOs and entrepreneurs for high-signal conversations.
           </p>
         </div>
 
-        <div class="mt-12 grid gap-6 sm:grid-cols-2 max-w-lg mx-auto">
+        <div class="mt-16 grid gap-6 sm:grid-cols-2 max-w-lg mx-auto">
           {team.map((member, i) => (
             <div
-              class="animate-fade-up ab-card rounded-xl p-6 text-center flex flex-col items-center"
-              style={`animation-delay: ${i * 100}ms`}
+              class="cockpit-card rounded-xl p-8 text-center flex flex-col items-center transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
             >
               {member.image ? (
                 <img
                   src={member.image}
                   alt={member.name}
                   class="h-20 w-20 rounded-full object-cover mx-auto"
-                  style="border: 1px solid var(--ab-border);"
+                  style="border: 1px solid var(--color-edge);"
                 />
               ) : (
-                <div class="flex h-20 w-20 items-center justify-center rounded-full" style="border: 1px solid var(--ab-border); background: var(--ab-raised);">
-                  <span class="font-display text-lg font-700" style="color: var(--ab-accent);">
+                <div class="flex h-20 w-20 items-center justify-center rounded-full" style="border: 1px solid var(--color-edge); background: var(--color-surface-raised);">
+                  <span class="font-display text-lg font-700" style="color: var(--color-accent);">
                     {member.initials}
                   </span>
                 </div>
               )}
-              <h3 class="mt-5 font-display text-lg font-700" style="color: var(--ab-text);">
+              <h3 class="mt-6 font-display text-lg font-700" style="color: var(--color-midnight);">
                 {member.name}
               </h3>
-              <p class="mt-1 text-sm" style="color: var(--ab-accent);">{member.company}</p>
+              <p class="mt-1 text-sm font-mono" style="color: var(--color-accent);">{member.company}</p>
               {member.linkedin && (
                 <a
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="mt-4 inline-flex items-center gap-1.5 text-sm transition-opacity hover:opacity-70"
-                  style="color: var(--ab-light-muted);"
+                  style="color: var(--color-subtle);"
                 >
                   <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -349,106 +413,106 @@ const year = new Date().getFullYear();
       </div>
     </section>
 
-    <!-- Ecosystem -->
-    <section id="ecosystem" class="relative py-24" style="border-top: 1px solid var(--ab-border);">
-      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+    <!-- ═══ Ecosystem ═══ -->
+    <section id="ecosystem" class="reveal-section relative py-36">
+      <div class="contour-divider"></div>
 
       <div class="mx-auto max-w-7xl px-6">
         <div class="mx-auto max-w-2xl text-center">
-          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Ecosystem</span>
-          <h2 class="mt-4 font-display text-3xl font-800 leading-tight tracking-tight sm:text-4xl" style="color: var(--ab-text);">
+          <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: var(--color-accent);">Ecosystem</span>
+          <h2 class="mt-6 font-display text-3xl font-800 leading-tight tracking-tight sm:text-4xl" style="color: var(--color-midnight);">
             Who's in the Room
           </h2>
-          <p class="mt-4 text-lg" style="color: var(--ab-muted);">
+          <p class="mt-6 text-lg" style="color: var(--color-muted);">
             Companies and leaders attending, supporting, and shaping Airborne Day.
           </p>
         </div>
 
-        <div class="mt-12 flex flex-wrap justify-center gap-4">
+        <div class="mt-16 flex flex-wrap justify-center gap-5">
           {ecosystem.map((company) => (
-            <div class="ab-card flex h-20 items-center justify-center rounded-xl px-7">
+            <div class="cockpit-card flex h-24 items-center justify-center rounded-xl px-8 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
               {company.logo ? (
                 <img src={company.logo} alt={company.name} class={`h-10 max-w-[120px] object-contain ${company.noFilter ? '' : 'confraria-logo'}`} />
               ) : (
-                <span class="font-display text-base font-700" style="color: var(--ab-text);">{company.name}</span>
+                <span class="font-display text-base font-700" style="color: var(--color-midnight);">{company.name}</span>
               )}
             </div>
           ))}
-          <div class="flex h-20 items-center justify-center rounded-xl px-7" style="background: rgba(67, 110, 182, 0.04); border: 1px solid rgba(67, 110, 182, 0.1);">
-            <span class="font-display text-base font-600" style="color: var(--ab-light-muted);">& more</span>
+          <div class="flex h-24 items-center justify-center rounded-xl px-8" style="background: rgba(59,108,181,0.03); border: 1px solid rgba(59,108,181,0.08);">
+            <span class="font-mono text-sm font-700 uppercase tracking-wider" style="color: var(--color-subtle);">& more</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Waitlist / CTA -->
-    <section class="relative py-32" style="border-top: 1px solid var(--ab-border);">
-      <div class="pointer-events-none absolute left-0 top-0 h-px w-full" style="background: linear-gradient(to right, transparent, rgba(67, 110, 182, 0.15), transparent);"></div>
+    <!-- ═══ CTA ═══ -->
+    <section class="reveal-section relative py-40">
+      <div class="contour-divider"></div>
 
       <div class="mx-auto max-w-7xl px-6">
         <div class="mx-auto max-w-2xl text-center">
-          <span class="font-display text-xs font-600 tracking-widest uppercase" style="color: var(--ab-accent);">Join Us</span>
-          <h2 class="mt-4 font-display text-4xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--ab-text);">
+          <span class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: var(--color-accent);">Join Us</span>
+          <h2 class="mt-6 font-display text-4xl font-800 leading-tight tracking-tight sm:text-5xl" style="color: var(--color-midnight);">
             Interested in Attending?
           </h2>
-          <p class="mt-6 text-lg" style="color: var(--ab-muted);">
+          <p class="mt-8 text-lg" style="color: var(--color-muted);">
             Airborne Day is invitation-only. If you're a CEO, founder, or entrepreneur and want to be part of the conversation, get in touch.
           </p>
-          <div class="mt-10">
+          <div class="mt-12">
             <span
-              class="inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-600 cursor-default opacity-50"
-              style="background: var(--ab-accent); color: white;"
+              class="cta-button inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-600 cursor-default opacity-50"
+              style="background: var(--color-accent); color: white;"
             >
               Coming Soon
             </span>
           </div>
 
-          <div class="mt-8 flex flex-col items-center gap-2 text-sm" style="color: var(--ab-light-muted);">
-            <span class="font-display font-700" style="color: var(--ab-text);">May 14, 2026</span>
-            <span>New York City &middot; Full Day</span>
-            <span style="color: var(--ab-light-muted);"><a href="https://maps.google.com/?q=345+Avenue+of+the+Americas,+New+York,+NY" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 transition-opacity hover:opacity-70">Tailor Partners &middot; 345 Avenue of the Americas</a></span>
+          <div class="mt-10 flex flex-col items-center gap-3 font-mono text-sm" style="color: var(--color-subtle);">
+            <span class="font-700 text-base" style="color: var(--color-midnight);">MAY 14, 2026</span>
+            <span class="text-xs uppercase tracking-wider">New York City · Full Day</span>
+            <span class="text-xs"><a href="https://maps.google.com/?q=345+Avenue+of+the+Americas,+New+York,+NY" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 transition-opacity hover:opacity-70">Tailor Partners · 345 Avenue of the Americas</a></span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer style="background: #2D3042;">
-      <div class="mx-auto max-w-7xl px-6 py-16">
+    <!-- ═══ Footer ═══ -->
+    <footer style="background: #0C1A3A;">
+      <div class="mx-auto max-w-7xl px-6 py-20">
         <div class="flex flex-col gap-12 sm:flex-row sm:items-start sm:justify-between">
           <div class="max-w-xs">
             <a href="/">
               <img src="/logos/airborne-wordmark-white.svg" alt="Airborne" class="h-6 w-auto" />
             </a>
-            <p class="mt-4 text-sm leading-relaxed" style="color: #9b9ba6;">
+            <p class="mt-6 text-sm leading-relaxed" style="color: rgba(255,255,255,0.45);">
               Connecting CEOs and entrepreneurs for high-signal conversations in New York City.
             </p>
           </div>
 
           <div class="flex gap-16">
             <div>
-              <h4 class="text-xs font-600 tracking-widest uppercase" style="color: #d4d6e0;">Event</h4>
-              <ul class="mt-4 space-y-3">
-                <li><a href="#about" class="text-sm transition-opacity hover:opacity-70" style="color: #9b9ba6;">About</a></li>
-                <li><a href="#team" class="text-sm transition-opacity hover:opacity-70" style="color: #9b9ba6;">Team</a></li>
+              <h4 class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: rgba(255,255,255,0.6);">Event</h4>
+              <ul class="mt-5 space-y-3">
+                <li><a href="#about" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.4);">About</a></li>
+                <li><a href="#team" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.4);">Team</a></li>
               </ul>
             </div>
             <div>
-              <h4 class="text-xs font-600 tracking-widest uppercase" style="color: #d4d6e0;">Connect</h4>
-              <ul class="mt-4 space-y-3">
+              <h4 class="font-mono text-[10px] font-700 tracking-[0.2em] uppercase" style="color: rgba(255,255,255,0.6);">Connect</h4>
+              <ul class="mt-5 space-y-3">
                 <li>
-                  <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="text-sm transition-opacity hover:opacity-70" style="color: #9b9ba6;">airborne.ventures</a>
+                  <a href="https://www.airborne.ventures/" target="_blank" rel="noopener noreferrer" class="text-sm transition-opacity hover:opacity-70" style="color: rgba(255,255,255,0.4);">airborne.ventures</a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div class="mt-16 flex flex-col items-center justify-between gap-4 pt-8 sm:flex-row" style="border-top: 1px solid #3D4055;">
-          <p class="text-xs" style="color: #6B6E82;">
+        <div class="mt-20 flex flex-col items-center justify-between gap-4 pt-8 sm:flex-row" style="border-top: 1px solid rgba(255,255,255,0.06);">
+          <p class="font-mono text-xs" style="color: rgba(255,255,255,0.3);">
             &copy; {year} Airborne Ventures. All rights reserved.
           </p>
-          <p class="text-xs" style="color: rgba(107, 110, 130, 0.6);">
+          <p class="font-mono text-xs" style="color: rgba(255,255,255,0.15);">
             Built with Astro
           </p>
         </div>
@@ -457,30 +521,260 @@ const year = new Date().getFullYear();
   </div>
 
   <style>
+    /* ── Page theme ── */
     .page {
-      --ab-bg: #ECEDF5;
-      --ab-surface: #F5F6FA;
-      --ab-raised: #FFFFFF;
-      --ab-border: #D4D6E0;
-      --ab-text: #2D3042;
-      --ab-muted: #3D4055;
-      --ab-light-muted: #6B6E82;
-      --ab-accent: #436eb6;
-      --ab-accent-dim: #224d7e;
-      --ab-gold: #9A7209;
+      background-color: #F0F2F8;
     }
 
-    .page {
-      background-color: var(--ab-bg);
+    /* ── Hero section: exactly one viewport, content at bottom ── */
+    .hero-section {
+      height: 100svh;
+      height: 100dvh; /* fallback chain */
+      overflow-y: clip;
     }
 
-    .ab-card {
-      background: var(--ab-surface);
-      border: 1px solid var(--ab-border);
+    /* ── Vertical text ── */
+    .writing-vertical {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
     }
 
+    /* ── HUD menu button ── */
+    .hud-btn {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent);
+      padding: 6px 14px;
+      position: relative;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .hud-btn:hover,
+    .hud-btn.is-open {
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    /* Corner notches — like LCARS / cockpit interface */
+    .hud-btn::before,
+    .hud-btn::after {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-color: var(--color-accent);
+    }
+
+    .hud-btn::before {
+      top: -3px;
+      left: -3px;
+      border-top: 1.5px solid;
+      border-left: 1.5px solid;
+    }
+
+    .hud-btn::after {
+      bottom: -3px;
+      right: -3px;
+      border-bottom: 1.5px solid;
+      border-right: 1.5px solid;
+    }
+
+    .hud-btn.is-open::before,
+    .hud-btn.is-open::after {
+      border-color: #fff;
+    }
+
+    /* ── HUD edge readouts ── */
+    .hud-readout {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .hud-readout-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(59,108,181,0.25);
+    }
+
+    .hud-readout-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: rgba(59,108,181,0.18);
+    }
+
+    /* ── HUD cockpit card with targeting brackets ── */
+    .cockpit-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-edge);
+      box-shadow: 0 1px 3px rgba(12,26,58,0.04);
+      position: relative;
+    }
+
+    /* Targeting brackets — corner marks */
+    .cockpit-card::before,
+    .cockpit-card::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: var(--color-accent);
+      opacity: 0.25;
+      transition: opacity 0.3s ease;
+    }
+
+    .cockpit-card::before {
+      top: -1px;
+      left: -1px;
+      border-top: 1.5px solid;
+      border-left: 1.5px solid;
+    }
+
+    .cockpit-card::after {
+      bottom: -1px;
+      right: -1px;
+      border-bottom: 1.5px solid;
+      border-right: 1.5px solid;
+    }
+
+    .cockpit-card:hover::before,
+    .cockpit-card:hover::after {
+      opacity: 0.5;
+    }
+
+    /* ── Contour divider ── */
+    .contour-divider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(59,108,181,0.1) 0,
+        rgba(59,108,181,0.1) 6px,
+        transparent 6px,
+        transparent 16px
+      );
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, transparent 100%);
+    }
+
+    /* ── Contour line animation layers ── */
+    .contour-layer {
+      animation: contour-drift 40s linear infinite;
+    }
+
+    .contour-layer-slow {
+      animation: contour-drift 60s linear infinite reverse;
+    }
+
+    /* ── HUD menu links ── */
+    .hud-menu-link:hover {
+      background: var(--color-accent) !important;
+      color: #fff !important;
+      border-color: var(--color-accent) !important;
+    }
+
+    /* ── CTA pulse ── */
+    .cta-button {
+      position: relative;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      border: 1px solid var(--color-accent);
+      animation: blip-pulse 3s ease-in-out infinite;
+    }
+
+    /* ── ConfrariaTech logo ── */
     .confraria-logo {
       filter: brightness(0.25);
     }
+
+    /* ── Mobile menu ── */
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      background: rgba(240,242,248,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(59,108,181,0.08);
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.3s ease;
+    }
+
+    .mobile-menu.is-open {
+      max-height: 320px;
+      opacity: 1;
+    }
+
+    .mobile-menu-link:hover {
+      color: var(--color-accent) !important;
+    }
+
+    /* ── Scroll reveal ── */
+    .reveal-section {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = mobileMenu?.classList.toggle('is-open');
+      menuBtn.classList.toggle('is-open', isOpen);
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      mobileMenu?.setAttribute('aria-hidden', String(!isOpen));
+    });
+
+    mobileMenu?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('is-open');
+        menuBtn?.classList.remove('is-open');
+        menuBtn?.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    // Scroll-triggered section reveals
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('.reveal-section').forEach((el) => {
+      observer.observe(el);
+    });
+  </script>
 </Layout>
